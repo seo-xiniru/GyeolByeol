@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>사모, 조지훈</title>
+  <style>
+    @font-face {
+      font-family: 'MaruBuri';
+      src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2) format("woff2"),
+           url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff) format("woff"),
+           url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.ttf) format("truetype");
+    }
+
+    html, body {
+      font-family: 'MaruBuri', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+      line-height: 160%;
+      text-align: center;
+      color: black;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      transition: opacity 1s ease;
+    }
+
+    #bg-video.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .wrap {
+      width: 1000px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding-top: 30px;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      background: none;
+      color: black;
+      border: none;
+      font-size: 14px;
+      text-decoration: underline;
+      z-index: 1000;
+      user-select: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      line-height: 1.2;
+      font-family: 'MaruBuri', sans-serif;
+    }
+
+    .play-button {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: none;
+      color: black;
+      border: none;
+      font-size: 14px;
+      text-decoration: underline;
+      z-index: 1000;
+      user-select: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      line-height: 1.2;
+      font-family: 'MaruBuri', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- 🎞 배경 영상 -->
+  <video id="bg-video" autoplay muted playsinline preload="auto" poster="../fallback.jpg">
+    <source src="../mak.mp4" type="video/mp4" />
+  </video>
+
+  <!-- 🔙 뒤로가기 -->
+  <a href="../index.html" class="back-button">뒤로가기</a>
+
+  <!-- ▶️ 재생 버튼 -->
+  <button class="play-button" onclick="replayVideo()">재생하기</button>
+
+  <!-- 📜 본문 -->
+  <div class="wrap">
+    <section style="padding: 80px 0px;">사모, 조지훈</section>
+    <section>
+			<p>
+			사랑을 다해 사랑하였노라고</p>
+			<p>정작 할 말이 남아 있음을 알았을 때</p>
+			<p>당신은 이미 남의 사람이 되어 있었다</P>
+		</section>
+		<section>
+			<p>불러야 할 뜨거운 노래를 가슴으로 죽이며</p>
+			<p>당신은 멀리로 잃어지고 있었다</p>
+		</section>
+		<section>
+			<p>하마 곱스런 웃음이 사라지기 전</p>
+			<p>두고두고 아름다운 여인으로 잊어 달라지만</p>
+			<p>남자에게서 여자란 기쁨 아니면 슬픔</p>
+		</section>
+		<section>
+			<p>다섯 손가락 끝을 잘라 핏물 오선을 그려</p>
+			<p>혼자라도 외롭지 않을 밤에 울어보리라</p>
+			<p>울어서 멍든 눈흘김으로</p>
+			<P>미워서 미워지도록 사랑하리라</p>
+		</section>
+		<section style="padding-bottom: 100px">
+			<p>한 잔은 떠나버린 너를 위하여</p>
+			<p>또 한 잔은 너와의 영원한 사랑을 위하여</p>
+			<p>그리고 또 한 잔은 이미 초라해진 나를 위하여</p>
+			<p>마지막 한 잔은 미리 알고 정하신 하나님을 위하여</p>
+		</section>
+  </div>
+
+  <script>
+    const video = document.getElementById('bg-video');
+
+    // 재생 끝나면 숨김
+    video.addEventListener('ended', () => {
+      video.classList.add('hidden');
+    });
+
+    // 재생 버튼 기능
+    function replayVideo() {
+      video.classList.remove('hidden');
+      video.currentTime = 0;
+      video.play();
+    }
+
+    // 페이지 로드 후 자동 재생 시도
+    window.addEventListener('load', () => {
+      video.play().catch((e) => {
+        console.warn('자동 재생 실패:', e);
+      });
+    });
+  </script>
+</body>
+</html>

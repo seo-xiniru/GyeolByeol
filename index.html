@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>訣別</title>
+  <style>
+    @font-face {
+      font-family: 'MaruBuri';
+      src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2) format("woff2"),
+           url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff) format("woff"),
+           url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.ttf) format("truetype");
+    }
+    @font-face {
+      font-family: 'SeoulHangangM';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangM.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'ChosunKm';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunKm.woff') format('woff');
+    }
+
+    html, body, .btn, .container {
+      font-family: 'MaruBuri', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      position: relative;
+    }
+
+    /* ✅ 비디오 배경 스타일 */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    header, footer {
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(6, 150px);
+      grid-template-rows: repeat(2, 150px);
+      gap: 0;
+    }
+
+    .container.bg-only {
+      position: relative;
+      z-index: 0;
+    }
+
+    .container.bg-only::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)),
+        url('zimg/broken.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #000;
+      font-size: 16px;
+      border: 0px solid #999;
+      width: 150px;
+      height: 150px;
+    }
+
+    .btn img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+
+    .main-hanja {
+      font-family: 'ChosunKm', serif;
+      display: inline-block;
+      background-color: transparent;
+    }
+
+    .text-bg {
+      background-color: transparent;
+      color: #000;
+      padding: 7px 10px;
+      display: inline;
+    }
+
+    .shadow {
+      text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .b1 { grid-column: 1 / 6; grid-row: 1 / 2; }
+    .b2 { grid-column: 1 / 6; grid-row: 2 / 2; }
+    .b3 { grid-column: 2 / 6; grid-row: 2 / 2; }
+    .b4 { grid-column: 6 / 6; grid-row: 1 / 2; }
+    .b5 { grid-column: 3 / 6; grid-row: 1 / 2; }
+    .b6 { grid-column: 4 / 6; grid-row: 1 / 2; }
+    .b7 { grid-column: 4 / 6; grid-row: 2 / 2; }
+    .b8 { grid-column: 5 / 6; grid-row: 2 / 2; }
+    .b9 { grid-column: 6 / 6; grid-row: 2 / 2; }
+
+    .btn.b1,
+    .btn.b11 {
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .b11 { grid-column: 1 / 6; grid-row: 1 / 2; }
+    .b22 { grid-column: 1 / 6; grid-row: 2 / 2; }
+    .b33 { grid-column: 2 / 6; grid-row: 1 / 2; }
+    .b44 { grid-column: 6 / 6; grid-row: 1 / 2; }
+    .b55 { grid-column: 3 / 6; grid-row: 1 / 2; }
+    .b66 { grid-column: 3 / 6; grid-row: 2 / 2; }
+    .b77 { grid-column: 4 / 6; grid-row: 2 / 2; }
+    .b88 { grid-column: 5 / 6; grid-row: 2 / 2; }
+    .b99 { grid-column: 6 / 6; grid-row: 2 / 2; }
+    .b10 { grid-column: 4 / 6; grid-row: 1 / 2; }
+
+    footer {
+      background-color: white;
+      color: #000;
+      padding: 20px 0;
+      font-size: 14px;
+      text-align: center;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+    .back-button {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      background: none;
+      color: black;
+      border: none;
+      font-size: 14px;
+      text-decoration: underline;
+      z-index: 1000;
+      user-select: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      line-height: 1.2;
+      font-family: 'MaruBuri', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button" onclick="resetVisited()">
+  버튼 초기화
+</button>
+
+  <!-- ✅ 비디오 배경 -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="zimg/rain.mp4" type="video/mp4">
+    브라우저가 비디오 태그를 지원하지 않습니다.
+  </video>
+
+  <header class="bg-main" style="padding-top: 100px; padding-bottom: 50px;">
+    <h1 class="main-hanja" style="padding: 15px 30px; font-size: 9rem;">訣別</h1>
+    <h2 style="font-size: 1.2rem;">누군가와의 결별, 무언가와의 결별, 나와의 결별</h2>
+  </header>
+
+  <section style="padding-top: 50px;">
+    <div class="wrapper">
+      <main class="container bg-only">
+        <a href="#" class="btn b1"><img src="zimg/poem.png" alt="버튼1"></a>
+        <a href="page/flower.html" class="btn b2"><img src="zimg/back.png" alt="버튼2"></a>
+        <a href="page/love.html" class="btn b3"><img src="zimg/mak.png" alt="버튼3"></a>
+        <a href="page/jindallae.html" class="btn b5"><img src="zimg/jin-flower.png" alt="버튼5"></a>
+        <a href="page/sea.html" class="btn b6"><img src="zimg/sea.png" alt="버튼6"></a>
+        <a href="page/flower-jo.html" class="btn b7"><img src="zimg/tear.png" alt="버튼7"></a>
+        <a href="page/rain.html" class="btn b8"><img src="zimg/rain.png" alt="버튼8"></a>
+        <a href="page/wind.html" class="btn b4"><img src="zimg/wind.png" alt="버튼4"></a>
+        <a href="page/seyoung.html" class="btn b9"><img src="zimg/rainbow.png" alt="버튼9"></a>
+      </main>
+    </div>
+  </section>
+
+  <section style="padding-bottom: 120px;">
+    <div class="wrapper">
+      <main class="container bg-only">
+        <a href="#" class="btn b11"><img src="zimg/music.png" alt="버튼11"></a>
+        <a href="page/spring.html" class="btn b22"><img src="zimg/fallen.jpg" alt="버튼22"></a>
+        <a href="page/flowerwork.html" class="btn b33"><img src="zimg/yellow.jpg" alt="버튼33"></a>
+        <a href="page/please.html" class="btn b55"><img src="zimg/feather.png" alt="버튼55"></a>
+        <a href="page/lie.html" class="btn b66"><img src="zimg/lock.png" alt="버튼66"></a>
+        <a href="page/stalker.html" class="btn b77"><img src="zimg/glasses.png" alt="버튼77"></a>
+        <a href="page/earth.html" class="btn b88"><img src="zimg/earth.png" alt="버튼88"></a>
+        <a href="page/calling.html" class="btn b44"><img src="zimg/castle.png" alt="버튼44"></a>
+        <a href="page/ihateyou.html" class="btn b99"><img src="zimg/good.png" alt="버튼99"></a>
+        <a href="page/realize.html" class="btn b10"><img src="zimg/caution.png" alt="버튼10"></a>
+      </main>
+    </div>
+  </section>
+  <footer style="padding: 30px 0px;">
+    <div class="footer-content">
+      <p>&copy; 2025 訣別결별. All rights reserved.</p>
+      <p> Min Seo</p>
+    </div>
+  </footer>
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const visited = JSON.parse(localStorage.getItem('visitedButtons') || '[]');
+
+    // 방문한 버튼에 투명도 적용
+    visited.forEach(selector => {
+      const btn = document.querySelector(selector);
+      if (btn) {
+        btn.style.opacity = '0.5';
+      }
+    });
+
+    document.querySelectorAll('.btn').forEach(btn => {
+      const selector = '.' + [...btn.classList].join('.');
+
+      btn.addEventListener('click', (e) => {
+        const href = btn.getAttribute('href');
+
+        if (href && href !== '#') {
+          e.preventDefault(); // 기본 이동 막기
+          if (!visited.includes(selector)) {
+            visited.push(selector);
+            localStorage.setItem('visitedButtons', JSON.stringify(visited));
+          }
+          // 저장 후 약간의 지연 뒤 이동
+          setTimeout(() => {
+            window.location.href = href;
+          }, 50);
+        }
+      });
+    });
+  });
+</script>
+<script>
+  function resetVisited() {
+    localStorage.removeItem('visitedButtons');
+    alert("방문 기록이 초기화되었습니다!");
+    location.reload(); // 새로고침으로 투명도 초기화
+  }
+</script>
+
+
+</html>

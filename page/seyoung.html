@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>원시, 오세영</title>
+  <style>
+    @font-face {
+      font-family: 'MaruBuri';
+      src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2) format("woff2"),
+           url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff) format("woff"),
+           url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.ttf) format("truetype");
+    }
+
+    html, body {
+      font-family: 'MaruBuri', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+      line-height: 160%;
+      text-align: center;
+      color: black;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      transition: opacity 1s ease;
+    }
+
+    #bg-video.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .wrap {
+      width: 1000px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding-top: 30px;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      background: none;
+      color: black;
+      border: none;
+      font-size: 14px;
+      text-decoration: underline;
+      z-index: 1000;
+      user-select: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      line-height: 1.2;
+      font-family: 'MaruBuri', sans-serif;
+    }
+
+    .play-button {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: none;
+      color: black;
+      border: none;
+      font-size: 14px;
+      text-decoration: underline;
+      z-index: 1000;
+      user-select: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      line-height: 1.2;
+      font-family: 'MaruBuri', sans-serif;
+    }
+    body.video-playing {
+  color: white;
+}
+
+  </style>
+</head>
+<body>
+  <!-- 🎞 배경 영상 -->
+  <video id="bg-video" autoplay muted playsinline preload="auto" poster="../fallback.jpg">
+    <source src="../star.mp4" type="video/mp4" />
+  </video>
+
+  <!-- 🔙 뒤로가기 -->
+  <a href="../index.html" class="back-button">뒤로가기</a>
+
+  <!-- ▶️ 재생 버튼 -->
+  <button class="play-button" onclick="replayVideo()">재생하기</button>
+
+  <!-- 📜 본문 -->
+  <div class="wrap">
+    <section style="padding: 80px 0px;">원시, 오세영</section>
+    
+      <section style="padding-bottom: 80px;">
+          <p>멀리 있는 것은</p>
+          <p>아름답다.</p>
+          <p>무지개나 별이나 벼랑에 피는 꽃이나</p>
+          <p>멀리 있는 것은</p>
+          <p>손에 닿을 수 없는 까닭에</p>
+          <p>아름답다.</p>
+          <p>사랑하는 사람아,</p>
+          <p>이별을 서러워하지 마라</p>
+          <p>내 나이의 이별이란</p>
+          <p>헤어지는 일이 아니라 단지</p>
+          <p>멀어지는 일일 뿐이다.</p>
+          <p>네가 보낸 마지막 편지를 읽기 위해선</p>
+          <p>이제</p>
+          <p>돋보기가 필요한 나이,</p>
+          <p>늙는다는 것은</p>
+          <p>사랑하는 사람을 멀리 보낸다는</p>
+          <p>것이다.</p>
+          <p>머얼리서 바라볼 줄을</p>
+          <p>안다는 것이다.</p>
+      </section>
+    </section>
+  </div>
+
+
+  <script>
+    const video = document.getElementById('bg-video');
+
+    // 재생 끝나면 숨김
+    video.addEventListener('ended', () => {
+      video.classList.add('hidden');
+    });
+
+    // 재생 버튼 기능
+    function replayVideo() {
+      video.classList.remove('hidden');
+      video.currentTime = 0;
+      video.play();
+    }
+
+    // 페이지 로드 후 자동 재생 시도
+    window.addEventListener('load', () => {
+      video.play().catch((e) => {
+        console.warn('자동 재생 실패:', e);
+      });
+    });
+    // 재생 시작 시 텍스트 색상 흰색
+video.addEventListener('play', () => {
+  document.body.classList.add('video-playing');
+});
+
+// 재생 종료 시 다시 검정색으로
+video.addEventListener('ended', () => {
+  video.classList.add('hidden');
+  document.body.classList.remove('video-playing');
+});
+
+// 재생 버튼 클릭 시에도 색상 반영
+function replayVideo() {
+  video.classList.remove('hidden');
+  video.currentTime = 0;
+  video.play();
+  document.body.classList.add('video-playing');
+}
+  </script>
+</body>
+</html>
